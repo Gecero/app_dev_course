@@ -1,0 +1,4 @@
+1. make a unity project
+2. make a script that checks for keypresses and moves a cube
+3. make collision detection
+
