@@ -1,0 +1,7 @@
+Erstellt ein Spielfeld gemäß des angefügten Bildes. Erstellt zwei Spieler, die sich nach oben und unter bewegen können. Linker Spieler mit w+s, rechter Spiele mit up+down.
+
+Erstellt einen Ball der sich über das Spielfeld bewegt und und an den Spielfeldbegrenzungen abprallt (Einfallswinkel = Ausfallswinkel). Ebenso soll dieser am den Spielern abprallen (hier soll er mit einem zufälligen Winkel abprallen). Der Ball so nach und nach schneller werden.
+
+Wenn der Ball hinter einen Spieler gelangt, dann punkte der jeweils andere Spieler. Punkte sollen angezeigt werden. Die Geschwindigkeit soll wieder zurückgesetzt werden.
+
+In dieser Aufgabe sind Bestandteile die Ihr euch noch nicht angeeignet habt. Versucht diese zu identifizieren und mich dann auf Discord zu fragen, was Ihr euch ansehen müsst, um die Aufgabe zu lösen.
