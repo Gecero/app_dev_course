@@ -11,7 +11,7 @@ public class ScoreTextHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponent<TextMesh>().text = "Player 1 Score:" + ScoreHandler.playerScore + "\nPlayer 2 Score:" + ScoreHandler.opponentScore;
+		GetComponent<TextMesh>().text = ScoreHandler.playerScore.ToString() + "\t\t\t\t\t" + ScoreHandler.opponentScore.ToString();
 
 	}
 }
