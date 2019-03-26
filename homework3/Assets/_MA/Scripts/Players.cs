@@ -52,8 +52,8 @@ public class Players : MonoBehaviour
             /*/
         }//Player2 Controll
 
-            rbPlayer1.velocity = new Vector3(0, Input.GetAxis("VerticalLeft") * 10.0f, 0);
-            rbPlayer2.velocity = new Vector3(0, Input.GetAxis("VerticalRight") * 10.0f, 0);
+            rbPlayer1.AddForce(new Vector3(0, Input.GetAxis("VerticalLeft") * 10.0f, 0));
+            rbPlayer2.AddForce(new Vector3(0, Input.GetAxis("VerticalRight") * 10.0f, 0));
             
     }
     private void OnCollisionEnter(Collision collision)

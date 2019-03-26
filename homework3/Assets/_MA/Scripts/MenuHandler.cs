@@ -3,35 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MenuHandler : MonoBehaviour {
-
+	
 	public RectTransform line1;
 	public RectTransform line2;
 	public RectTransform line3;
 	public RectTransform startButton;
-
+	
 	float getTimeMilli() { return Time.time * 1000.0f; }
 
 	void Start() {
-
+		DOTween.Init();
+		DOTween.RewindAll();
 	}
 
 	void Update()
 	{
 		float speed = 1000.0f * Time.deltaTime;
-		int minX = 550;
-		bool line3PosReached = line3.transform.position.x >= minX ? true : false;
+		float line3X = 550;
+		bool line3PosReached = line3.transform.position.x >= line3X ? true : false;
 
 
 		float size = Mathf.Abs(Mathf.Sin(getTimeMilli() * 0.0025f)) * 0.25f + 0.5f;
-		line2.transform.localScale = new Vector3(size, size, 1.0f);
+		line2.transform.DOScale(new Vector3(size, size, 1.0f), 0);
 
-		if (line3.transform.position.x < minX)
-			line3.transform.Translate(new Vector3(speed, 0.0f, 0.0f));
-
+		if (line3.transform.position.x < line3X)
+			//line3.transform.Translate(new Vector3(speed, 0.0f, 0.0f));
+			//DOTween.To(()=> line3.transform.position, x=> line3.transform.position = x, line3.transform.position + new Vector3(speed, 0.0f, 0.0f), 0);
+			line3.transform.DOMove(line3.transform.position + new Vector3(speed, 0.0f, 0.0f), 0);
+			
 		if(line3PosReached) {
-			line3.transform.Rotate(new Vector3(0.0f, 0.0f, speed * 0.025f));
+			line3.transform.DORotate(new Vector3(0.0f, 0.0f, speed * 0.025f), 0, RotateMode.LocalAxisAdd);
 		}
 
 	}
