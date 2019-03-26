@@ -11,16 +11,34 @@ public class MenuHandler : MonoBehaviour {
 	public RectTransform line2;
 	public RectTransform line3;
 	public RectTransform startButton;
+	private Text line1T;
+	private Text line2T;
+	private Text line3T;
 	
 	float getTimeMilli() { return Time.time * 1000.0f; }
-
+	
+	void adjustGUIRatios() {
+		startButton.sizeDelta = new Vector2(Screen.width / 10, Screen.height / 17.5f);
+		startButton.transform.position = new Vector3((Screen.width / 2) + startButton.sizeDelta.x, (Screen.height / 4) * 3 + startButton.sizeDelta.y, 0.0f);
+		line1T.fontSize = (int)Mathf.Sqrt(((float)Screen.width / 8.0f) * ((float)Screen.height / 6.0f));
+		line1.transform.position = new Vector3((Screen.width / 2) - (line1T.fontSize * 2.5f), (Screen.height / 4) * 3, 0.0f);
+		line2T.fontSize = (int)(Mathf.Sqrt(((float)Screen.width / 8.0f) * ((float)Screen.height / 6.0f)) * 0.25f);
+		line2.transform.position = new Vector3(line1.transform.position.x + (line1T.fontSize * 1.25f), (Screen.height / 4) * 2.25f, 0.0f);
+	}	
+	
 	void Start() {
 		DOTween.Init();
 		DOTween.RewindAll();
+		line1T = line1.GetComponent<Text>();
+		line2T = line2.GetComponent<Text>();
+		line3T = line3.GetComponent<Text>();
+		
+		adjustGUIRatios();
 	}
-
-	void Update()
-	{
+	
+	void Update() {
+		adjustGUIRatios(); // for testing purposes
+		
 		float speed = 1000.0f * Time.deltaTime;
 		float line3X = 550;
 		bool line3PosReached = line3.transform.position.x >= line3X ? true : false;
