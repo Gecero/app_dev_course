@@ -2,77 +2,88 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public class Ball : MonoBehaviour
 {
-    public float fCollisions = 1.0f;
-    public int iGoalP1 = 0;
-    public int iGoalP2 = 0;
+	private float collisions = 1.0f;
+	public bool makeBallFasterOnCollision;
+	private int scoreP1 = 0;
+	private int scoreP2 = 0;
+	public TextMesh scoreTextMeshP1;
+	public TextMesh scoreTextMeshP2;
+	private Rigidbody rb;
+	private bool firstSpawn = true;
 
-	public TextMesh P1Score;
-	public TextMesh P2Score;
-
-    public Transform tPlayer;
-
-    Rigidbody rb;
-
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 		rb = GetComponent<Rigidbody>();
-		float iStart = Random.value;
-		if(iStart <= 0.5) {
-			rb.velocity = new Vector3(-fCollisions, fCollisions, 0);
-		} else {
-			rb.velocity = new Vector3(fCollisions, fCollisions, 0);
-		}
-    }
+		resetPosition();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		goal();
-		Debug.Log(rb.velocity);
-    }
+	// Update is called once per frame
+	void Update() {
+		checkForGoals();
+	}
 
-    void FixedUpdate()
-    {
-		P1Score.text = iGoalP1.ToString();
-		P2Score.text = iGoalP2.ToString();
-    }
+	void FixedUpdate() {
+		scoreTextMeshP1.text = scoreP1.ToString();
+		scoreTextMeshP2.text = scoreP2.ToString();
+	}
 
-    void OnCollisionEnter(Collision collision)
-    {
-		fCollisions += 0.1f;
-		Vector3 tempVel = rb.velocity.normalized * (3 + fCollisions);
+	void resetPosition() {
+		rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+		transform.DOMove(new Vector3(0.2261235f, 0.0f, -6.33f), firstSpawn == true ? 0 : 1);
+		collisions = 3.0f;
+		float tmpX = Random.Range(-0.1f, 0.1f);
+		if (tmpX > 1.0f)
+			tmpX += 1f;
+		else if (tmpX < 1.0f)
+			tmpX -= 1f;
+		else
+			tmpX = 1.0f;
+
+		float tmpY = Random.Range(-0.1f, 0.1f);
+		if (tmpY > 1.0f)
+			tmpY += 1f;
+		else if (tmpY < 1.0f)
+			tmpY -= 1f;
+		else
+			tmpY = 1.0f;
+		
+		Vector3 tmp = new Vector3(tmpX, tmpY, 0.0f).normalized;
+		rb.velocity = new Vector3(tmp.x * collisions, tmp.y * collisions, 0);
+		firstSpawn = false;
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if(makeBallFasterOnCollision)
+			collisions += 0.1f;
+		Vector3 tempVel = rb.velocity.normalized * (3.0f + collisions);
 		rb.velocity = tempVel;
 		GetComponent<SoundManager>().playCollisionSound();
-    }
+	}
 
-    void goal()
-    {
-		//Goal query player 2 (Player 1 side)
-		if (transform.position.x <= -11.24f)
+	void checkForGoals()
+	{
+		if (transform.position.x <= -11.0f)
 		{
-		    transform.position = new Vector3(0.2261235f, 0.0f, -6.33f);
-		    fCollisions = 3.0f;
-		    rb.velocity = new Vector3(-fCollisions, -fCollisions, 0);
-		    iGoalP2++;
+			resetPosition();
+			scoreP2++;
 			GetComponent<SoundManager>().playGoalSound();
 		}
 		
-		//Goal query player 1 (player 2 side)
-		if (transform.position.x >= 11.24f)
+		if (transform.position.x >= 11.0f)
 		{
-		    transform.position = new Vector3(0.2261235f, 0.0f, -6.33f);
-		    fCollisions = 3.0f;
-		    rb.velocity = new Vector3(fCollisions, fCollisions, 0);
-		    iGoalP1++;
+			resetPosition();
+			scoreP1++;
 			GetComponent<SoundManager>().playGoalSound();
 		}
-    }
+	}
 }
 
    
-    
+	
 

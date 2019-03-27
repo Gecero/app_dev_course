@@ -16,7 +16,7 @@ public class MenuHandler : MonoBehaviour {
 	private Text line2T;
 	private Text line3T;
 	
-	float getTimeMilli() { return Time.time * 1000.0f; }
+	public static float getTimeMilli() { return Time.time * 1000.0f; }
 	
 	void adjustGUIRatios() {
 		startButton.sizeDelta = new Vector2(Screen.width / 10, Screen.height / 17.5f);

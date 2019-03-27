@@ -693,8 +693,8 @@ Rigidbody:
   m_GameObject: {fileID: 240583014}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -729,7 +729,7 @@ TextMesh:
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 0
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 500
   m_FontStyle: 0
@@ -779,7 +779,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 244958400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 4.32, z: 0}
+  m_LocalPosition: {x: 2, y: 4, z: 0}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1049,8 +1049,8 @@ Rigidbody:
   m_GameObject: {fileID: 524046144}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1069,7 +1069,7 @@ GameObject:
   - component: {fileID: 528000583}
   - component: {fileID: 528000587}
   m_Layer: 0
-  m_Name: WallUp
+  m_Name: WallUpper
   m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,13 +1240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78620e0ebbbd06e47a9e5640e0813d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rbPlayer1: {fileID: 240583019}
-  rbPlayer2: {fileID: 524046149}
-  rbBall: {fileID: 0}
-  bP1: 1
-  bP2: 1
-  bShrink: 1
-  fForce: 50
+  player1: {fileID: 240583019}
+  player2: {fileID: 524046149}
+  ball: {fileID: 1627137976}
+  shrinkBallOnCollision: 0
 --- !u!1 &668664467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,7 +1772,7 @@ GameObject:
   - component: {fileID: 1170768958}
   - component: {fileID: 1170768962}
   m_Layer: 0
-  m_Name: WallDown
+  m_Name: WallLower
   m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2042,8 +2039,8 @@ GameObject:
   - component: {fileID: 1627137973}
   - component: {fileID: 1627137972}
   - component: {fileID: 1627137976}
-  - component: {fileID: 1627137977}
   - component: {fileID: 1627137978}
+  - component: {fileID: 1627137977}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -2143,12 +2140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab638fd3451756f47b6ce656cc24d124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fCollisions: 5
-  iGoalP1: 0
-  iGoalP2: 0
-  P1Score: {fileID: 1757607962}
-  P2Score: {fileID: 244958401}
-  tPlayer: {fileID: 0}
+  makeBallFasterOnCollision: 0
+  scoreTextMeshP1: {fileID: 1757607962}
+  scoreTextMeshP2: {fileID: 244958401}
 --- !u!114 &1627137978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1757607961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.62, y: 4.32, z: 0}
+  m_LocalPosition: {x: -2, y: 4, z: 0}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children: []
   m_Father: {fileID: 0}
