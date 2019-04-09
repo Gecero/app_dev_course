@@ -14,13 +14,22 @@ public class PauseObject : MonoBehaviour
         onUnpauseEventHandlers.Add(onUnpause);
     }
 
-
+    void OnDisable() {
+        NvpEventController.UnsubscribeFromEvent(NvpGameEvents.OnPauseObjectCheck, OnPauseObjectCheck);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        NvpEventController.SubscribeToEvent(NvpGameEvents.OnPauseObjectCheck, OnPauseObjectCheck);
     }
+
+    private void OnPauseObjectCheck(object s, object e)
+    {
+        togglePaused();
+        Debug.LogFormat("{0}", e);
+    }
+
 
     // Update is called once per frame
     void Update()

@@ -15,9 +15,8 @@ public class PauseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape)) {
-            foreach(var a in objectsToPause)
-                a.togglePaused();
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            NvpEventController.InvokeEvent(NvpGameEvents.OnPauseObjectCheck, this, null);
             
         }
 
