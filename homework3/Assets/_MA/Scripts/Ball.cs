@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
@@ -14,17 +13,23 @@ public class Ball : MonoBehaviour
 	public TextMesh scoreTextMeshP2;
 	private Rigidbody rb;
 	private bool firstSpawn = true;
+	public bool paused = false;
+	private Vector3 lastVelocity = Vector3.zero; // for pausing and unpausing
+	private PauseObject po;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		po = GetComponent<PauseObject>();
+		po.init(pauseBall, unpauseBall);
 		resetPosition();
 	}
 
 	// Update is called once per frame
 	void Update() {
 		checkForGoals();
+		
 	}
 
 	void FixedUpdate() {
@@ -32,11 +37,22 @@ public class Ball : MonoBehaviour
 		scoreTextMeshP2.text = scoreP2.ToString();
 	}
 
+	void pauseBall() {
+		if(rb.velocity != Vector3.zero) // !!! we need this if because then otherwise both lastVelocity and rb.velocity go to null aka. Vector3.zero and the ball would not move even if its unpaused !!!
+			lastVelocity = rb.velocity;
+		rb.velocity = Vector3.zero;
+	}
+
+	void unpauseBall() {
+		rb.velocity = lastVelocity;
+		// don't need to "Vector3.zero-ize" lastVelocity because it gets overwritten each way
+	}
+
 	void resetPosition() {
 		rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 		transform.DOMove(new Vector3(0.2261235f, 0.0f, -6.33f), firstSpawn == true ? 0 : 1);
 		collisions = 3.0f;
-		float tmpX = Random.Range(-0.1f, 0.1f);
+		float tmpX = UnityEngine.Random.Range(-0.1f, 0.1f);
 		if (tmpX > 1.0f)
 			tmpX += 1f;
 		else if (tmpX < 1.0f)
@@ -44,7 +60,7 @@ public class Ball : MonoBehaviour
 		else
 			tmpX = 1.0f;
 
-		float tmpY = Random.Range(-0.1f, 0.1f);
+		float tmpY = UnityEngine.Random.Range(-0.1f, 0.1f);
 		if (tmpY > 1.0f)
 			tmpY += 1f;
 		else if (tmpY < 1.0f)
